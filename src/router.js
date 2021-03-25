@@ -26,4 +26,20 @@ router.get('/menus', (req, res) => {
   })
 })
 
+// 해당 메뉴의 모든 글을 가져오는 api
+// return: Array {POST_ID: int, TITLE: string, CONTENT: string, UPD_DATE: string}
+router.get(`/posts`, (req, res) => {
+  const menuId = req.query.menuId;
+
+  const q = `
+    select POST_ID, TITLE, CONTENT, UPD_DATE
+    from post
+    where MENU_ID=${menuId}
+  `;
+
+  conn.query(q, (err, rows, fields) => {
+    res.send(rows);
+  })
+})
+
 module.exports = router;
