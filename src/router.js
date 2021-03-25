@@ -14,11 +14,27 @@ conn.connect();
 // 라우터 파일로 분리
 
 // 모든 메뉴를 가져오는 api
-// return: Array {MENU_ID: int, NAME: string, SORT: int}
+// return: Array {MENU_ID: int, NAME: string, SORT: int, TYPE: string}
 router.get('/menus', (req, res) => {
   const q = `
     select *
     from menu
+  `;
+
+  conn.query(q, (err, rows, fields) => {
+    res.send(rows);
+  })
+})
+
+// 해당 메뉴의 Type을 가져오는 api
+// return: Array {TYPE: string}
+router.get(`/menuType`, (req, res) => {
+  const menuId = req.query.menuId;
+
+  const q = `
+    select TYPE
+    from menu
+    where MENU_ID=${menuId}
   `;
 
   conn.query(q, (err, rows, fields) => {
