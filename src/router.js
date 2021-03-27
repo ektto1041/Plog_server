@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 // 디비 커넥션 모듈로 분리
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const conn = mysql.createConnection({
   host  : 'localhost',
   user  : 'root',
-  password  : 'tmsp2zm',
+  password  : 'password',
   database  : 'plog'
 });
 conn.connect();
