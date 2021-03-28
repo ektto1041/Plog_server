@@ -6,7 +6,7 @@ const mysql = require('mysql2');
 const conn = mysql.createConnection({
   host  : 'localhost',
   user  : 'root',
-  password  : 'password',
+  password  : 'tmsp2zm',
   database  : 'plog'
 });
 conn.connect();
@@ -42,15 +42,35 @@ router.get(`/menuType`, (req, res) => {
   })
 })
 
+// 해당 메뉴의 모든 글의 갯수를 가져오는 api
+// return:
+router.get(`/postCount`, (req, res) => {
+  const menuId = req.query.menuId;
+
+  const q = `
+    select count(*)
+    from post
+    where MENU_ID=${menuId}
+  `;
+
+  conn.query(q, (err, rows, fields) => {
+    res.send(rows);
+  })
+});
+
 // 해당 메뉴의 모든 글을 가져오는 api
 // return: Array {POST_ID: int, TITLE: string, CONTENT: string, UPD_DATE: string}
 router.get(`/posts`, (req, res) => {
   const menuId = req.query.menuId;
+  const offset = (parseInt(req.query.offset)-1) * 10;
+  const limit = req.query.limit;
 
   const q = `
     select POST_ID, TITLE, CONTENT, UPD_DATE
     from post
     where MENU_ID=${menuId}
+    order by UPD_DATE desc
+    limit ${offset}, ${limit}
   `;
 
   conn.query(q, (err, rows, fields) => {
