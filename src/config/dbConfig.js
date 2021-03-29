@@ -3,6 +3,6 @@ module.exports = (function() {
     host  : 'localhost',
     user  : 'root',
     password  : 'password',
-    database  : 'plog'
+    database  : 'plog',
   }
 })();
