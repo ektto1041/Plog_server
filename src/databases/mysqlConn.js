@@ -1,7 +1,14 @@
 let mysql = require('mysql2');
+
+const defaultDbConfig = {
+  host: '127.0.0.1',
+  user: 'root',
+  password: 'password',
+  database: 'database',
+};
  
 module.exports = function () {
-  var config = require('../config/dbConfig');    // ./는 현재 디렉토리를 나타냅니다
+  var config = require('../config/dbConfig') || defaultDbConfig; // ./는 현재 디렉토리를 나타냅니다
   var pool = mysql.createPool({
     host: config.host,
     user: config.user,
