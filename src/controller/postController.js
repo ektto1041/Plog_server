@@ -33,7 +33,13 @@ const getPosts = (req, res) => {
       const count = rows[0].count;
 
       const q = `
-        select POST_ID, TITLE, CONTENT, UPD_DATE, VIEW
+        select
+          POST_ID,
+          TITLE,
+          CONTENT,
+          REG_DATE,
+          UPD_DATE,
+          VIEW
         from post
         where MENU_ID=${menuId}
         order by UPD_DATE desc
