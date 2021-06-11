@@ -1,16 +1,9 @@
 let db = require('../databases/mysqlConn');
+const Menu = require('../../models/menu');
 
-const getMenus = (req, res) => {
-  db.getConnection((err, con) => {
-    const q = `
-      select *
-      from menu
-    `;
-
-    con.query(q, (err, rows, fields) => {
-      res.send(rows);
-    });
-  })
+const getMenus = async (req, res) => {
+  const menus = await Menu.findAll();
+  res.json(menus);
 }
 
 const getMenuType = (req, res) => {

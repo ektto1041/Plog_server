@@ -1,3 +1,7 @@
+/**
+ * mysql Connection 객체
+ */
+
 let mysql = require('mysql2');
 
 const defaultDbConfig = {
@@ -17,7 +21,7 @@ module.exports = function () {
   });
  
   return {
-    getConnection: function (callback) {    // connection pool을 생성하여 리턴합니다
+    getConnection: function (callback) { // connection pool을 생성하여 리턴합니다
       pool.getConnection(callback);
     },
     end: function(callback){
