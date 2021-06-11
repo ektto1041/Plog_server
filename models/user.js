@@ -8,11 +8,6 @@ module.exports = class User extends Model {
   static init(sequelize) {
     return super.init({
       // Model attributes are defined here
-      user_id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -33,6 +28,6 @@ module.exports = class User extends Model {
 
   // 테이블 연관관계 설정 (join)
   static associate(db) {
-    db.User.hasMany(db.Post, { foreignKey: 'user_id', sourceKey: 'user_id' });
+    db.User.hasMany(db.Post, { foreignKey: 'user_id', sourceKey: 'id' });
   }
 };

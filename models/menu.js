@@ -7,11 +7,11 @@ const { DataTypes, Model } = require('sequelize');
 module.exports = class Menu extends Model {
   static init(sequelize) {
     return super.init({
-      menu_id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-      },
+      // menu_id: {
+      //   type: DataTypes.INTEGER,
+      //   primaryKey: true,
+      //   autoIncrement: true,
+      // },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -36,6 +36,6 @@ module.exports = class Menu extends Model {
 
   // 테이블 연관관계 설정 (join)
   static associate(db) {
-    db.Menu.hasMany(db.Post, { foreignKey: 'menu_id', sourceKey: 'menu_id' });
+    db.Menu.hasMany(db.Post, { foreignKey: 'menu_id', sourceKey: 'id' });
   }
 };

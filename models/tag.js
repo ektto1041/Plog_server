@@ -7,11 +7,6 @@ const { DataTypes, Model } = require('sequelize');
 module.exports = class Tag extends Model {
   static init(sequelize) {
     return super.init({
-      tag_id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -27,6 +22,6 @@ module.exports = class Tag extends Model {
 
   // 테이블 연관관계 설정 (join)
   static associate(db) {
-    db.Tag.belongsTo(db.Post, { foreignKey: 'post_id', targetKey: 'post_id' });
+    db.Tag.belongsTo(db.Post, { foreignKey: 'post_id', targetKey: 'id' });
   }
 };
