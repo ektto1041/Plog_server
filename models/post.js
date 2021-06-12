@@ -28,5 +28,6 @@ module.exports = class Post extends Model {
   static associate(db) {
     db.Post.belongsTo(db.User, { foreignKey: 'user_id', targetKey: 'id' });
     db.Post.belongsTo(db.Menu, { foreignKey: 'menu_id', targetKey: 'id' });
+    db.Post.belongsToMany(db.Tag, { through: 'posttag' }); // 'posttag' 라는 테이블이 생성됨
   }
 };

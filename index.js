@@ -6,6 +6,7 @@ const User = require('./models/user');
 const app = express();
 const port = 4000;
 const router = require('./src/router');
+const authRoutes = require('./src/routes/auth');
 
 /**
  * *************
@@ -32,10 +33,12 @@ sequelize.sync({ force: true })
       {
         name: '박용우',
         email: 'apfhd5620@gmail.com',
+        password: 'admin',
       },
       {
         name: '박상연',
         email: 'ektto1041@gmail.com',
+        password: 'admin',
       },
     ]);
 
@@ -68,6 +71,13 @@ sequelize.sync({ force: true })
 app.use(express.json()); // req.body 객체에 사용자로부터 온 요청의 body를 넣어줌
 app.use(express.urlencoded({ extended: true })); // form 파싱
 app.use(morgan('dev'));
+
+/**
+ * ************************
+ * 라우터 설정
+ * ************************
+ */
+app.use('/auth', authRoutes);
 app.use('/', router); // 라우터
 
 // 404 에러 처리 미들웨어 (에러 미들웨어보다 위에 있어야함)
