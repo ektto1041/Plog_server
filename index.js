@@ -89,6 +89,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     secret: "plog_secret",
+    cookie: {
+      httpOnly: true,
+    },
   })
 ); // req 객체에 session 주입
 app.use(passport.initialize()); // req 객체에 passport 데이터 주입

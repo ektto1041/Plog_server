@@ -2,7 +2,7 @@ let express = require("express");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const common = require("../utils/common");
-const { isNotLoggedIn } = require("../passport/middlewares");
+const { isLoggedIn, isNotLoggedIn } = require("../passport/middlewares");
 const User = require("../../models/user");
 let router = express.Router();
 
@@ -77,6 +77,27 @@ router.post("/login", (req, res, next) => {
       return res.json({ status: "OK", user });
     });
   })(req, res, next);
+});
+
+// 로그아웃
+router.post("/logout", isLoggedIn, (req, res, next) => {
+  try {
+    req.logout();
+    req.session.destroy();
+    return res.json({ status: "OK" });
+  } catch (e) {
+    console.log("Auth Router logoutError:", e);
+    return next(e);
+  }
+});
+
+// 유저 정보 로딩
+router.get("/user", (req, res, next) => {
+  if (req.isAuthenticated()) {
+    res.json({ status: "OK", user: req.user });
+  } else {
+    res.json({ status: "FAIL", user: null });
+  }
 });
 
 module.exports = router;

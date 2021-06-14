@@ -1,10 +1,11 @@
-let db = require('../databases/mysqlConn');
-const Menu = require('../../models/menu');
+let db = require("../databases/mysqlConn");
+const Menu = require("../../models/menu");
 
 const getMenus = async (req, res) => {
+  console.log("$$$ menu", req.session);
   const menus = await Menu.findAll();
   res.json(menus);
-}
+};
 
 const getMenuType = (req, res) => {
   db.getConnection((err, con) => {
@@ -15,14 +16,14 @@ const getMenuType = (req, res) => {
       from menu
       where MENU_ID=${menuId}
     `;
-  
+
     con.query(q, (err, rows, fields) => {
       res.send(rows);
-    })    
-  })
-}
+    });
+  });
+};
 
 module.exports = {
   getMenus,
   getMenuType,
-}
+};
