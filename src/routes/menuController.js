@@ -2,7 +2,6 @@ let db = require("../databases/mysqlConn");
 const Menu = require("../../models/menu");
 
 const getMenus = async (req, res) => {
-  console.log("$$$ menu", req.session);
   const menus = await Menu.findAll();
   res.json(menus);
 };

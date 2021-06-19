@@ -19,6 +19,14 @@ module.exports = class User extends Model {
         },
         password: {
           type: DataTypes.STRING(100),
+          allowNull: true,
+        },
+        snsId: {
+          type: DataTypes.INTEGER,
+          allowNull: true,
+        },
+        provider: {
+          type: DataTypes.STRING(100),
           allowNull: false,
         },
       },

@@ -79,6 +79,21 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
+// 카카오 로그인
+router.get("/kakao", (req, res, next) => {
+  passport.authenticate("kakao")(req, res, next);
+});
+// 카카오 로그인 콜백
+router.get(
+  "/kakao/callback",
+  passport.authenticate("kakao", {
+    failureRedirect: "/",
+  }),
+  (req, res) => {
+    res.redirect(`${req.protocol}://localhost:3000/`); // todo 리다이렉트 url 변경
+  }
+);
+
 // 로그아웃
 router.post("/logout", isLoggedIn, (req, res, next) => {
   try {

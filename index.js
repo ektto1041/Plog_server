@@ -46,11 +46,13 @@ sequelize
         name: "박용우",
         email: "apfhd5620@gmail.com",
         password: hash,
+        provider: "plog",
       },
       {
         name: "박상연",
         email: "ektto1041@gmail.com",
         password: hash,
+        provider: "plog",
       },
     ]);
 
