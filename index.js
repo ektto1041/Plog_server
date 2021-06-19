@@ -4,7 +4,7 @@ const passport = require("passport");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-const { sequelize } = require("./models");
+const { sequelize, Post } = require("./models");
 const passportConfig = require("./src/passport");
 
 const router = require("./src/router");
@@ -64,6 +64,16 @@ sequelize
       {
         name: "About Us",
         sort: 2,
+      },
+    ]);
+
+    await Post.bulkCreate([
+      {
+        title: "자바스크립트 교과서",
+        content:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit maxime id aliquid eligendi error repellat tempore voluptatem provident exercitationem. Veniam repudiandae veritatis animi, illum quos dolor nihil unde enim aliquid.",
+        user_id: 1,
+        menu_id: 1,
       },
     ]);
 

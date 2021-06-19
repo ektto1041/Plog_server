@@ -28,7 +28,7 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
       return res.json({ status: "FAIL", message });
     }
 
-    // 기존재 유저 체크
+    // 기존 유저 체크
     const exUser = await User.findOne({ where: { email } });
     if (exUser) {
       return res.json({

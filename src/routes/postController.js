@@ -1,4 +1,5 @@
-let db = require('../databases/mysqlConn');
+let db = require("../databases/mysqlConn");
+const Post = require("../../models/post");
 
 const getPostCount = (req, res) => {
   db.getConnection((err, con) => {
@@ -9,48 +10,26 @@ const getPostCount = (req, res) => {
       from post
       where MENU_ID=${menuId}
     `;
-  
+
     con.query(q, (err, rows, fields) => {
       console.log(rows[0]);
       res.send(rows);
-    })
-  })
-}
-
-const getPosts = (req, res) => {
-  db.getConnection((err, con) => {
-    const menuId = req.query.menuId;
-    const offset = (parseInt(req.query.offset)-1) * 10;
-    const limit = req.query.limit;
-  
-    let q = `
-      select count(*) as count
-      from post
-      where MENU_ID=${menuId}
-    `;
-  
-    con.query(q, (err, rows, fields) => {
-      const count = rows[0].count;
-  
-      const q = `
-        select POST_ID, TITLE, CONTENT, UPD_DATE
-        from post
-        where MENU_ID=${menuId}
-        order by UPD_DATE desc
-        limit ${offset}, ${limit}
-      `;
-  
-      con.query(q, (err, rows, fields) => {
-        res.send({
-          count,
-          postList: rows,
-        });
-      });
     });
   });
-}
+};
+
+// 해당 메뉴의 모든 게시글 가져오는 API
+const getPosts = async (req, res) => {
+  try {
+    const menuId = req.query.id;
+    const postList = await Post.findAll({ where: { menu_id: menuId } });
+    res.json({ postList });
+  } catch (e) {
+    console.log("/getPosts error", e);
+  }
+};
 
 module.exports = {
   getPostCount,
   getPosts,
-}
+};
